@@ -7,7 +7,7 @@ const path = require("path");
 
 // keep log
 const logger = function(req, res, next) {
-    console.log(req.method, req.url);
+    console.log(req.ip, req.hostname, req.method, req.url);
     next();
 };
 
@@ -31,6 +31,7 @@ app.use(session({
 app.use("/api", require("./routes/index.route"));
 app.use("*", (req, res, next) => {
     res.sendFile(path.join(__dirname, "http-status", "404.html"));
+    res.status(404);
 });
 
 
