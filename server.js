@@ -1,3 +1,6 @@
+// set default NODE_ENV if env uninitialze is develoment
+process.env.NODE_ENV = process.env.NODE_ENV || "develoment";
+
 const express = require("./config/express");
 const app = express();
 
