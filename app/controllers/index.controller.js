@@ -1,3 +1,10 @@
 exports.render = function(req, res) {
-    res.render("index", { title: null, isLoggedIn: null });
+    let isLoggedIn = false;
+    if (req.session.remember === true) {
+        // เคย login แล้ว
+        isLoggedIn = true;
+    }
+    res.render("index", { 
+        title: "Welcome blog", isLoggedIn: isLoggedIn
+    });
 }

@@ -2,6 +2,10 @@ const express = require("express");
 const morgan = require("morgan");
 const compression = require("compression");
 const bodyParser = require("body-parser");
+const validator = require("express-validator");
+// const cookieSession = require("cookie-session");
+const session = require("express-session");
+const RedisStore = require("connect-redis")(session);
 
 module.exports = function() {
     const app = express();
@@ -13,10 +17,24 @@ module.exports = function() {
         app.use(compression());
         console.warn("Running mode: " + process.env.NODE_ENV)
     }
+    app.use(session({
+        store: new RedisStore({
+            host: "localhost",
+            port: 6379
+        }),
+        secret: "sittikiat",
+        resave: false,
+        saveUninitialized: true
+    }))
+    // app.use(cookieSession({
+    //     name: "session",
+    //     keys: ["sittikiat", "sujitranon"]
+    // }))
     app.use(bodyParser.urlencoded({
         extended: true
     }));
     app.use(bodyParser.json());
+    app.use(validator())
 
     app.set("views", "./app/views");
     app.set("view engine", "ejs");
