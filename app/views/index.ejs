@@ -4,10 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>404</title>
+    <title><%= title %></title>
 </head>
 <body>
-    <h3>404 Not Found</h3>
+    <h3><%= title %></h3>
     <hr />
+    <% if (isLoggedIn) { %>
+        <h3>You are logged in</h3>
+        <form name="logout" method="POST" action="logout">
+            <div>
+                <button type="submit">logout</button>
+            </div>
+        </form>
+    <% } else { %>
+        <h3>Logout</h3>
+        <form name="logout" method="POST" action="login">
+            <div>
+                <label for="email">Email</label>
+                <input type="email" name="email" placeholder="example@domain.com">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="6-8 word">
+            </div>
+            <div>
+                <button type="submit">login</button>
+            </div>
+        </form>
+    <% } %>
+
+
 </body>
 </html>
