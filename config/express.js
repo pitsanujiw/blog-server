@@ -26,6 +26,12 @@ module.exports = function() {
         resave: false,
         saveUninitialized: true
     }))
+    app.use(function(req, res, next) {
+        if (!req.session) {
+            return next(new Error("Please check redis"));
+        }
+        next();
+    })
     // app.use(cookieSession({
     //     name: "session",
     //     keys: ["sittikiat", "sujitranon"]
