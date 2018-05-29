@@ -1,4 +1,6 @@
-exports.login = function(req, res) {
+const User = require("mongoose").model("User");
+
+exports.login = function (req, res) {
     req.checkBody("email", "Invalid email").notEmpty().isEmail();
     req.sanitizeBody("email").normalizeEmail();
     const errors = req.validationErrors();
@@ -23,11 +25,22 @@ exports.login = function(req, res) {
     }
 }
 
-exports.logout = function(req, res) {
+exports.logout = function (req, res) {
     // req.session = null;
     req.session.destroy();
     res.render("index", {
         title: "Logout success: " + req.body.email,
         isLoggedIn: false
+    })
+}
+
+exports.create = function (req, res, next) {
+    const userCtrl = new User(req.body);
+    userCtrl.save(function (err) {
+        if (err) {
+            return err;
+        } else {
+            res.json(userCtrl);
+        }
     })
 }
