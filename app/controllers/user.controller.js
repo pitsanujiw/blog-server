@@ -38,7 +38,8 @@ exports.create = function (req, res, next) {
     const userCtrl = new User(req.body);
     userCtrl.save(function (err) {
         if (err) {
-            return err;
+            // error because userName is duplicate key
+            next(err);
         } else {
             res.json(userCtrl);
         }
