@@ -1,3 +1,4 @@
+const config = require("./config");
 const express = require("express");
 const morgan = require("morgan");
 const compression = require("compression");
@@ -10,7 +11,7 @@ const RedisStore = require("connect-redis")(session);
 module.exports = function() {
     const app = express();
     
-    if (process.env.NODE_ENV === "develoment") {
+    if (process.env.NODE_ENV === "development") {
         app.use(morgan("dev"));
         console.warn("Running mode: " + process.env.NODE_ENV)
     } else {
@@ -22,7 +23,7 @@ module.exports = function() {
             host: "localhost",
             port: 6379
         }),
-        secret: "sittikiat",
+        secret: config.sessionSecret,
         resave: false,
         saveUninitialized: true
     }))
