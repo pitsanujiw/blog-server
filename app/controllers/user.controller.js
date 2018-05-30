@@ -39,9 +39,39 @@ exports.create = function (req, res, next) {
     userCtrl.save(function (err) {
         if (err) {
             // error because userName is duplicate key
-            next(err);
+            return next(err);
         } else {
             res.json(userCtrl);
         }
     })
 }
+
+exports.list = function (req, res, next) {
+    User.find({}, "firstName lastName userName", {}, function (err, users) {
+        if (err) {
+            return next(err);
+        } else {
+            res.json(users);
+        }
+    })
+}
+
+exports.read = function (req, res, next) {
+    if (req.user === null) {
+        res.json(`Username ${req.userName} has not in system. Please register.`);
+    } else {
+        res.json(req.user)
+    }
+}
+
+exports.userByUserName = function (req, res, next, userName) {
+    User.findOne({ "userName": userName }, function (err, user) {
+        if (err) {
+            return next(err);
+        } else {
+            req.userName = userName;
+            req.user = user;
+            next();
+        }
+    });
+};

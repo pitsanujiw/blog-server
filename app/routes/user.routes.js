@@ -3,5 +3,9 @@ module.exports = function(app) {
     app.post("/login", user.login);
     app.post("/logout", user.logout);
     app.route("/user")
-        .post(user.create);
+        .post(user.create)
+        .get(user.list)
+    app.route("/user/:userName") // todo second
+        .get(user.read)
+    app.param("userName", user.userByUserName) // todo first
 }
