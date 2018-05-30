@@ -87,7 +87,6 @@ exports.update = function (req, res, next) {
 };
 
 exports.delete = function (req, res, next) {
-    console.log(req.user)
     req.user.remove(function (err) {
         if (err) {
             return next(err);
