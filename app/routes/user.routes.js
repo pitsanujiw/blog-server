@@ -8,5 +8,6 @@ module.exports = function(app) {
     app.route("/user/:userName") // todo second
         .get(user.read)
         .put(user.update)
+        .delete(user.delete)
     app.param("userName", user.userByUserName) // todo first
 }

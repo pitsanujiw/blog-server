@@ -77,12 +77,22 @@ exports.userByUserName = function (req, res, next, userName) {
 };
 
 exports.update = function (req, res, next) {
-    console.log(req.body);
     User.findOneAndUpdate({ "userName": req.user.userName }, req.body, function (err, user) {
         if (err) {
             return next(err);
         } else {
             res.json(user);
+        }
+    });
+};
+
+exports.delete = function (req, res, next) {
+    console.log(req.user)
+    req.user.remove(function (err) {
+        if (err) {
+            return next(err);
+        } else {
+            res.json(req.user);
         }
     });
 };

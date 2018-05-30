@@ -5,5 +5,7 @@
 
 # Routes
 - GET /user (showall users)
-- POST /user
+- POST /user (create user)
 - GET /user/<userName> (ex. mike, john, marry)
+- PUT /user/<userName>
+- DELETE /user/<userName>
