@@ -7,6 +7,7 @@ const validator = require("express-validator");
 // const cookieSession = require("cookie-session");
 const session = require("express-session");
 const RedisStore = require("connect-redis")(session);
+const flash = require("connect-flash");
 const passport = require("passport");
 
 module.exports = function() {
@@ -34,6 +35,7 @@ module.exports = function() {
         }
         next();
     })
+    app.use(flash());
     app.use(passport.initialize());
     app.use(passport.session());
     // app.use(cookieSession({

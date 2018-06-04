@@ -9,7 +9,7 @@ const UserSchema = new Schema({
         type: String,
         unique: true,
         trim: true,
-        required: true
+        required: "Username is require"
     },
     email: {
         type: String,
@@ -31,7 +31,7 @@ const UserSchema = new Schema({
     },
     provider: {     // type of strategy
         type: String,
-        required: true
+        required: "Provider is require"
     },
     providerId: String, // OAuth id
     providerData: {}

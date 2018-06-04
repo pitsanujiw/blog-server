@@ -1,5 +1,28 @@
 const User = require("mongoose").model("User");
 
+function getErrorMessage(err) {
+    let message = null;
+    
+    if (err.code) {
+        // error code mongodb
+        switch (err.code) {
+            case 11001:
+                messsage = "Username is already";
+                break;
+            default: 
+                message = "Something went wrong";
+        }
+    } else {
+        // validation error
+        for (let errName in err.errors) {
+            if (err.errors[errName].message) {
+                message = err.errors[errName].message;
+            }
+        }
+    }
+    return message;
+}
+
 exports.login = function (req, res) {
     req.checkBody("email", "Invalid email").notEmpty().isEmail();
     req.sanitizeBody("email").normalizeEmail();
@@ -97,9 +120,14 @@ exports.delete = function (req, res, next) {
 };
 
 exports.renderSignup = function (req, res, next) {
-    res.render("signup", {
-        title: "Sign up"
-    });
+    if (!req.user) {
+        res.render("signup", {
+            title: "Sign up",
+            messagesError: req.flash("error")
+        });
+    } else {
+        return res.redirect("/");
+    }
 }
 
 exports.signup = function (req, res, next) {
@@ -109,6 +137,9 @@ exports.signup = function (req, res, next) {
 
         user.save(function (err) {
             if (err) {
+                let message = getErrorMessage(err);
+                console.log(message)
+                req.flash("error", message)
                 return res.redirect("/signup");
             }
             req.login(user, function (err) {

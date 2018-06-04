@@ -13,6 +13,9 @@
 <body>
     <h3><%= title %></h3>
     <hr />
+    <% messagesError.forEach(messageError => { %>
+    <h3><%= messageError %></h3>
+    <% }); %>
     <form action="/signup" method="POST" name="signup">
         <div>
             <label for="userName">Username</label>
