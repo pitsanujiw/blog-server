@@ -9,3 +9,4 @@
 - GET /user/<userName> (ex. mike, john, marry)
 - PUT /user/<userName>
 - DELETE /user/<userName>
+- POST /signin [userName, firstName, lastName, email, password]
