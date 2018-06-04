@@ -3,14 +3,14 @@ const User = require("mongoose").model("User");
 
 function getErrorMessage(err) {
     let message = null;
-    
+
     if (err.code) {
         // error code mongodb
         switch (err.code) {
             case 11001:
                 messsage = "Username is already";
                 break;
-            default: 
+            default:
                 message = "Something went wrong";
         }
     } else {
@@ -140,7 +140,38 @@ exports.logout = function (req, res) {
     res.redirect("/");
 }
 
- 
+exports.saveOAuthUserProfile = function (req, profile, done) {
+    User.findOne({
+        "provider": profile.provider,
+        "providerId": profile.providerId
+    }, function (err, user) {
+        if (err) {
+            return done(err);
+        } else {
+            if (!user) {
+                let possibleUsername = profile.username || profile.email ? profile.email.split("@")[0] : "";
+                User.findUniqueUsername(possibleUsername, null, function (availableUsername) {
+                    profile.username = availableUsername;
+                    let user = new User(profile);
+                    user.save(function (err) {
+                        if (err) {
+                            let message = getErrorMessage(err);
+                            req.flash("error", message);
+                            return res.redirect("/signup");
+                        }
+                        return done(err, user);
+                    });
+                });
+
+            } else {
+                return done(err, user);
+            }
+        }
+
+    });
+}
+
+
 
 // exports.login = function (req, res) {
 //     req.checkBody("email", "Invalid email").notEmpty().isEmail();

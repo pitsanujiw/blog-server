@@ -53,4 +53,8 @@ UserSchema.methods.authenticate = function (password) {
     return this.password === this.hashPassword(password);
 }
 
+UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
+    
+}
+
 mongoose.model("User", UserSchema);
