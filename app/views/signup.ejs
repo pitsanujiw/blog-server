@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <h3><%= title %></h3>
+    <hr />
+    <form action="/signup" method="POST" name="signup">
+        <div>
+            <label for="userName">Username</label>
+            <input type="text" name="userName">
+        </div>
+
+        <div>
+            <label for="firstName">Firstname</label>
+            <input type="text" name="firstName">
+        </div>
+
+        <div>
+            <label for="lastName">Lastname</label>
+            <input type="text" name="lastName">
+        </div>
+
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email">
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password">
+        </div>
+
+        <div>
+            <button type="submit">Sign up</button>
+        </div>
+    </form>
+
+</body>
+
+</html>
