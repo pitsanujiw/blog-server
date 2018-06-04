@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     firstName: String,
     lastName: String,
-    userName: {
+    username: {
         type: String,
         unique: true,
         trim: true,
-        required: "Username is require"
+        required: "username is require"
     },
     email: {
         type: String,
@@ -50,7 +50,6 @@ UserSchema.methods.hashPassword = function (password) {
 }
 
 UserSchema.methods.authenticate = function (password) {
-    console.log(password, this.password);
     return this.password === this.hashPassword(password);
 }
 

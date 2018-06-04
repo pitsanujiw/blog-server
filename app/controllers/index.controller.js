@@ -12,6 +12,6 @@ exports.render = function(req, res) {
     // });
     res.render("index", {
         title: "Welcome blog",
-        userName: req.user ? req.user.userName : null
+        username: req.user ? req.user.username : null
     })
 }

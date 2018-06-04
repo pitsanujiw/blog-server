@@ -16,25 +16,10 @@
     <% messages.forEach(message => { %>
     <h3><%= message %></h3>
     <% }); %>
-    <form action="/signup" method="POST" name="signup">
+    <form action="/login" method="POST" name="login">
         <div>
             <label for="username">Username</label>
             <input type="text" name="username">
-        </div>
-
-        <div>
-            <label for="firstName">Firstname</label>
-            <input type="text" name="firstName">
-        </div>
-
-        <div>
-            <label for="lastName">Lastname</label>
-            <input type="text" name="lastName">
-        </div>
-
-        <div>
-            <label for="email">Email</label>
-            <input type="email" name="email">
         </div>
 
         <div>
@@ -43,7 +28,7 @@
         </div>
 
         <div>
-            <button type="submit">Sign up</button>
+            <button type="submit">Log in</button>
         </div>
     </form>
 

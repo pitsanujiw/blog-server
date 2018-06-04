@@ -20,6 +20,11 @@ module.exports = function() {
         app.use(compression());
         console.warn("Running mode: " + process.env.NODE_ENV)
     }
+    app.use(bodyParser.urlencoded({
+        extended: true
+    }));
+    app.use(bodyParser.json());
+
     app.use(session({
         store: new RedisStore({
             host: "localhost",
@@ -35,17 +40,16 @@ module.exports = function() {
         }
         next();
     })
+
     app.use(flash());
+    
     app.use(passport.initialize());
     app.use(passport.session());
     // app.use(cookieSession({
     //     name: "session",
     //     keys: ["sittikiat", "sujitranon"]
     // }))
-    app.use(bodyParser.urlencoded({
-        extended: true
-    }));
-    app.use(bodyParser.json());
+  
     app.use(validator())
 
     app.set("views", "./app/views");
