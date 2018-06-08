@@ -16,5 +16,6 @@ module.exports = function () {
 
     // use local strategy
     require("./strategies/local")();
+    require("./strategies/facebook")();
 
 }

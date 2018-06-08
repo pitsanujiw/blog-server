@@ -2,6 +2,14 @@ module.exports = function (app) {
     const user = require("../controllers/user.controller");
     var passport = require("passport");
 
+    app.get("/oauth/facebook", passport.authenticate("facebook", {
+        failureRedirect: "/login",
+        scope: "email"
+    }));
+    app.get("/oauth/facebook/callback", passport.authenticate("facebook", {
+        failureRedirect: "/login",
+        successRedirect: "/"
+    }));
     app.post("/logout", user.logout);
     app.route("/login")
         .get(user.renderLogin)
