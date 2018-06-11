@@ -141,7 +141,6 @@ exports.logout = function (req, res) {
 }
 
 exports.saveOAuthUserProfile = function (req, profile, done) {
-    console.log(profile)
     User.findOne({
         "provider": profile.provider,
         "providerId": profile.providerId
